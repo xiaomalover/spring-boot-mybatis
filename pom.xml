@@ -5,7 +5,7 @@
 
 	<groupId>com.weison</groupId>
 	<artifactId>spring-study</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>spring-study</name>
