@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+<!-- 通过 tag名称 引用 -->
+<header th:replace="common/top_header :: header"></header>
+
+<div class="container">
+
+<h4 class="text-center">图书列表</h4>
+<div class="pull-right">
+    <form class="form-inline" action="/book/insert" method="post">
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputEmail3">书名: </label>
+            <input type="text" class="form-control" id="exampleInputEmail3" placeholder="请输入书名" name="name">
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputPassword3">库存: </label>
+            <input type="text" class="form-control" id="exampleInputPassword3" placeholder="请输入库存" name="number">
+        </div>
+        <button type="submit" class="btn btn-primary">添加图书</button>
+    </form>
+</div>
+<div class="clearfix"></div>
+<hr/>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>书名</th>
+        <th>库存</th>
+        <th>详情</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${list}">
+        <td th:text="${book.bookId}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.number}"></td>
+        <td>
+            <a class="btn btn-min btn-success" th:href="'/book/' + ${book.bookId} + '/detail'">查看详情</a>
+            <a class="btn btn-min btn-info" th:href="'/book/update-form?bookId=' + ${book.bookId}">修改</a>
+            <a class="btn btn-min btn-danger" th:href="'/book/delete?bookId=' + ${book.bookId}">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>一共<span th:text="${page.pages}"></span>页 <span th:text="${page.total}"></span>条记录</p>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li th:if="${page.hasPreviousPage}"><a th:href="'?page=1'">首页</a></li>
+        <li th:if="${page.hasPreviousPage}"><a th:href="'?page='+${page.prePage}">上一页</a></li>
+        <li th:each="nav : ${page.navigatepageNums}">
+            <a th:href="'?page='+${nav}" th:text="${nav}" th:if="${nav != page.pageNum}"></a>
+            <span style="font-weight: bold" th:if="${nav == page.pageNum}" th:text="${nav}"></span>
+        </li>
+        <li th:if="${page.hasNextPage}"><a th:href="'?page='+${page.nextPage}">下一页</a></li>
+        <li th:if="${page.hasNextPage}"><a th:href="'?page='+${page.pages}">尾页</a></li>
+    </ul>
+</nav>
+
+<div th:insert="common/footer :: copy">aaa</div>
+
+</div>
+
+</body>
+</html>
