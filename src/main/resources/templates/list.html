@@ -44,8 +44,8 @@
         <td th:text="${book.number}"></td>
         <td>
             <a class="btn btn-min btn-success" th:href="'/book/' + ${book.bookId} + '/detail'">查看详情</a>
-            <a class="btn btn-min btn-info" th:href="'/book/update-form?bookId=' + ${book.bookId}">修改</a>
-            <a class="btn btn-min btn-danger" th:href="'/book/delete?bookId=' + ${book.bookId}">删除</a>
+            <a class="btn btn-min btn-info" th:href="'/book/update-form?bookId=' + ${book.bookId} + '&page=' + ${page.pageNum}">修改</a>
+            <a class="btn btn-min btn-danger" th:href="'/book/delete?bookId=' + ${book.bookId} + '&page=' + ${page.pageNum}">删除</a>
         </td>
     </tr>
     </tbody>

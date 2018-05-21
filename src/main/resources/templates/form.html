@@ -10,6 +10,7 @@
 <form action="/book/update" method="post">
 
     <input type="hidden" name="bookId" th:value="${book.bookId}" />
+    <input type="hidden" name="page" th:value="${page}" />
 
     <div class="form-group">
         <label class="sr-only" for="exampleInputEmail3">书名: </label>

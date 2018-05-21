@@ -1,10 +1,15 @@
 package com.weison.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Book {
     private Long bookId;
 
+    @NotBlank(message = "名称不能为空")
     private String name;
 
+    @NotNull(message = "库存不能为空")
     private Integer number;
 
     public Long getBookId() {

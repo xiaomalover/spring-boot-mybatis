@@ -2,22 +2,21 @@ package com.weison.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.weison.exception.MyException;
 import com.weison.model.Book;
 import com.weison.service.BookService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/book") // url:/模块/资源/{id}/细分 /seckill/list
+@RequestMapping("/book")
 public class BookController {
-
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private BookService bookService;
@@ -49,27 +48,42 @@ public class BookController {
 	}
 
 	@RequestMapping("/insert")
-	public String insert(Book book) {
+	public String insert(@Valid Book book, BindingResult bindingResult) throws MyException {
+		if(bindingResult.hasErrors()){
+            throw new MyException(bindingResult.getFieldError().getDefaultMessage());
+		}
+
 		bookService.insert(book);
 		return "redirect:/book/list";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete(@RequestParam("bookId") Long bookId) {
+	public String delete(
+			@RequestParam("bookId") Long bookId,
+			@RequestParam(value = "page", required = false) String page
+	) {
 		bookService.delete(bookId);
-		return "redirect:/book/list";
+		return "redirect:/book/list?page=" + page;
 	}
 
 	@RequestMapping(value = "/update-form", method = RequestMethod.GET)
-	public String update(@RequestParam("bookId") Long bookId, Model model) {
+	public String update(
+			@RequestParam("bookId") Long bookId,
+			Model model,
+			@RequestParam(value = "page", required = false) String page
+	) {
 		Book book = bookService.getById(bookId);
 		model.addAttribute("book", book);
+		model.addAttribute("page", page);
 		return "form";
 	}
 
 	@RequestMapping("/update")
-	public String update(Book book) {
+	public String update(
+			Book book,
+			@RequestParam(value = "page", required = false) String page
+	) {
 		bookService.update(book);
-		return "redirect:/book/list";
+		return "redirect:/book/list?page=" + page;
 	}
 }
