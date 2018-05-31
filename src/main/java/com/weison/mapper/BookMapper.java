@@ -1,7 +1,6 @@
 package com.weison.mapper;
 
 import com.weison.model.Book;
-
 import java.util.List;
 
 public interface BookMapper {
@@ -9,8 +8,8 @@ public interface BookMapper {
     /**
      * 通过ID查询单本图书
      *
-     * @param id
-     * @return long
+     * @param id 主键
+     * @return Book
      */
     Book queryById(long id);
 
@@ -23,27 +22,19 @@ public interface BookMapper {
 
     /**
      * 新增图书
-     * @param book
+     * @param book 图书
      */
     void insert(Book book);
 
     /**
      * 修改图书
-     * @param book
+     * @param book 图书
      */
     void update(Book book);
 
     /**
      * 删除图书
-     * @param bookId
+     * @param bookId 图书主键
      */
     void delete(Long bookId);
-
-    /**
-     * 减少馆藏数量
-     *
-     * @param bookId
-     * @return 如果影响行数等于>1，表示更新的记录行数
-     */
-    int reduceNumber(long bookId);
 }

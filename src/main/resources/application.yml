@@ -24,6 +24,11 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    servlet:
+        multipart:
+            max-file-size: 128KB
+            max-request-size: 128KB
+            enabled: true #默认允许上传文件，如果要禁用，把些属改为false
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.weison.model

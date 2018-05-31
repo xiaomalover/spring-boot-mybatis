@@ -5,51 +5,51 @@
     <select id="queryById" resultType="Book" parameterType="long">
         <!-- 具体的sql -->
         SELECT
-        book_id,
-        name,
-        number
+            book_id,
+            name,
+            number
         FROM
-        book
+          book
         WHERE
-        book_id = #{bookId}
+          book_id = #{bookId}
     </select>
 
     <select id="queryAll" resultType="Book">
-    SELECT
-    book_id,
-    name,
-    number
-    FROM
-    book
-    ORDER BY
-    book_id
-  </select>
+        SELECT
+            book_id,
+            name,
+            number
+        FROM
+          book
+        ORDER BY
+          book_id
+    </select>
 
     <insert id="insert" parameterType="Book">
-    insert into book
-    (name, number)
-    values
-    (#{name},#{number})
-  </insert>
+        insert into book
+            (name, number)
+        values
+            (#{name},#{number})
+    </insert>
 
     <update id="reduceNumber">
-    UPDATE book
-    SET number = number - 1
-    WHERE
-    book_id = #{bookId}
-    AND number > 0
-  </update>
+        UPDATE book
+          SET number = number - 1
+        WHERE
+          book_id = #{bookId}
+        AND number > 0
+    </update>
 
     <update id="update">
-    UPDATE book
-    SET name = #{name}, number = #{number}
-    WHERE
-    book_id = #{bookId}
-  </update>
+        UPDATE book
+        SET name = #{name}, number = #{number}
+        WHERE
+        book_id = #{bookId}
+    </update>
 
     <delete id="delete">
-    DELETE FROM book
-    WHERE
-    book_id = #{bookId}
-  </delete>
+        DELETE FROM book
+        WHERE
+        book_id = #{bookId}
+    </delete>
 </mapper>

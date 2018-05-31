@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- 通过 tag名称 引用 -->
+<header th:replace="common/top_header :: header">
+    <title>Spring-boot-文件上传实例</title>
+</header>
+
+<div class="container">
+
+    <br/><br/>
+
+    <div class="alert alert-success" role="alert" th:if="${message}">
+        <p th:text="${message}"/>
+    </div>
+
+    <div class="wrap">
+        <form method="POST" enctype="multipart/form-data" action="/file/list">
+            <table class="table">
+                <tr>
+                    <td>上传文件:</td>
+                    <td><input type="file" name="file" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><br/><input class="btn btn-primary" type="submit" value="上传文件" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div>
+        <ul class="list-group">
+            <li th:each="file : ${files}" class="list-group-item">
+                <a th:href="${file}" th:text="${file}" />
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

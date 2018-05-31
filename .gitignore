@@ -26,3 +26,6 @@
 .mvn
 mvnw
 mvnw.cmd
+
+### File Upload Folder ###
+upload-dir
