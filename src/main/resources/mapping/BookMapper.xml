@@ -3,6 +3,7 @@
 <mapper namespace="com.weison.mapper.BookMapper">
     <!-- 目的：为dao接口方法提供sql语句配置 -->
     <select id="queryById" resultType="Book" parameterType="long">
+
         <!-- 具体的sql -->
         SELECT
             book_id,
