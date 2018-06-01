@@ -26,4 +26,10 @@ public class UserController {
 
         return userService.findAllUser(pageNum,pageSize);
     }
+
+    @GetMapping(value = "/{userId}", produces = {"application/json;charset=UTF-8"})
+    public Object findOneUser(@PathVariable("userId") int userId){
+
+        return userService.findOneUser(userId);
+    }
 }

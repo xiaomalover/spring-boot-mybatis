@@ -17,4 +17,8 @@
         SELECT  * from user_info
     </select>
 
+    <select id="selectByPrimaryKey" resultType="com.weison.model.User" parameterType="int">
+        SELECT  * from user_info where user_id = #{userId}
+    </select>
+
 </mapper>

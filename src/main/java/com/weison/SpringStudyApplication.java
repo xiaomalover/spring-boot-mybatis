@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Spring Boot主启动类
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @MapperScan("com.weison.mapper") //将项目中对应的mapper类自动载人
 @EnableConfigurationProperties(StorageProperties.class) //文件上传属性配置类自动载入
+@EnableScheduling //定时任务载入
 public class SpringStudyApplication {
 
 	public static void main(String[] args) {

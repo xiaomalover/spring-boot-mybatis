@@ -20,4 +20,10 @@ public interface UserService {
      * @return List <User>
      */
     List <User> findAllUser(int pageNum, int pageSize);
+
+    /**
+     * 查单个用户
+     * @return User
+     */
+    User findOneUser(int userId);
 }
