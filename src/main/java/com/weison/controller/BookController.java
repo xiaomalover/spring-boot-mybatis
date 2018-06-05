@@ -5,13 +5,19 @@ import com.github.pagehelper.PageInfo;
 import com.weison.exception.MyException;
 import com.weison.model.Book;
 import com.weison.service.BookService;
+import com.weison.service.config.AsyncTaskConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Controller
 @RequestMapping("/book") //给此控制器所有请求加上/book的前辍
@@ -84,5 +90,52 @@ public class BookController {
 	) {
 		bookService.update(book);
 		return "redirect:/book/list?page=" + page;
+	}
+
+
+	//异步非阻塞-插入图书
+	@RequestMapping("/batch-insert-void")
+	public String testVoid() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AsyncTaskConfig.class);
+		// 创建了200个线程
+		for (int i = 1; i <= 200; i++) {
+			bookService.executeAsyncTask(i);
+		}
+		context.close();
+
+		return "redirect:/book/list";
+	}
+
+	//异步阻塞-插入图书
+	@RequestMapping("/batch-insert-wait")
+	public String testReturn() throws InterruptedException, ExecutionException {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AsyncTaskConfig.class);
+
+		List<Future<String>> lstFuture = new ArrayList<>();// 存放所有的线程，用于获取结果
+
+		// 创建100个线程
+		for (int i = 1; i <= 200; i++) {
+			while (true) {
+				try {
+					// 线程池超过最大线程数时，会抛出TaskRejectedException，则等待1s，直到不抛出异常为止
+					Future<String> future = bookService.asyncInvokeReturnFuture(i);
+					lstFuture.add(future);
+
+					break;
+				} catch (TaskRejectedException e) {
+					System.out.println("线程池满，等待1s。");
+					Thread.sleep(1000);
+				}
+			}
+		}
+
+		// 获取值。get是阻塞式，等待当前线程完成才返回值
+		for (Future<String> future : lstFuture) {
+			System.out.println(future.get());
+		}
+
+		context.close();
+
+		return "redirect:/book/list";
 	}
 }

@@ -10,7 +10,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 import com.weison.exception.StorageException;
 import com.weison.exception.StorageFileNotFoundException;
-import com.weison.service.properties.StorageProperties;
+import com.weison.service.config.StorageProperties;
 import com.weison.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

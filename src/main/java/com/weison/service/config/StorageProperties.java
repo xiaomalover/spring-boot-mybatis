@@ -1,4 +1,4 @@
-package com.weison.service.properties;
+package com.weison.service.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

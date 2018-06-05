@@ -2,7 +2,7 @@ package com.weison;
 
 import com.weison.service.StorageService;
 import com.weison.service.UserService;
-import com.weison.service.properties.StorageProperties;
+import com.weison.service.config.StorageProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Spring Boot主启动类
