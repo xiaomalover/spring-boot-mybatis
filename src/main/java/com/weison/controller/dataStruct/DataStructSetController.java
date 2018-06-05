@@ -17,7 +17,7 @@ import java.util.*;
  * 4) HashSet、TreeSet、EnumSet都是"线程不安全"的，通常可以通过Collections工具类的synchronizedSortedSet方法来"包装"该Set集合。
    SortedSet s = Collections.synchronizedSortedSet(new TreeSet(...));
  */
-@RequestMapping("/struct")
+@RequestMapping("/set")
 @RestController
 public class DataStructSetController
 {
@@ -156,5 +156,38 @@ public class DataStructSetController
         EnumSet<Season> es5 = EnumSet.complementOf(es4);
         //输出[SPRING]
         System.out.println(es5);
+    }
+
+    @RequestMapping("/get-element")
+    public void getElement()
+    {
+        //创建一个集合
+        Collection<String> books = new HashSet<>();
+        books.add("轻量级Java EE企业应用实战");
+        books.add("疯狂Java讲义");
+        books.add("疯狂Android讲义");
+        System.out.println(books);
+
+        Iterator it = books.iterator();
+        while (it.hasNext()) {
+            //it.next()方法返回的数据类型是Object类型，
+            //需要强制类型转换
+            String book = (String)it.next();
+            if (book.equals("疯狂Java讲义")) {
+                //从集合中删除上一次next方法返回的元素
+                books.remove(book);
+            }
+            //对book变量赋值，不会改变集合元素本身
+            book = "测试字符串";
+        }
+
+        System.out.println(books);
+
+        /*
+         *  books.forEach((book) -> {
+         *      System.out.println(book);
+         *  }); 简化如下
+         */
+        books.forEach(System.out::println);
     }
 }
