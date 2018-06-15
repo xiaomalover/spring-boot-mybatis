@@ -1,11 +1,8 @@
 package com.weison;
 
 import com.weison.service.StorageService;
-import com.weison.service.UserService;
 import com.weison.service.config.StorageProperties;
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +22,6 @@ public class SpringStudyApplication {
 		SpringApplication.run(SpringStudyApplication.class, args);
 	}
 
-	private static final Logger log = LoggerFactory.getLogger(SpringApplication.class);
-
 
 	/**
 	 * 在容器启动成功后的最后一步回调（类似开机自启动）
@@ -34,7 +29,7 @@ public class SpringStudyApplication {
 	 * @return CommandLineRunner
 	 */
 	@Bean
-	CommandLineRunner init(StorageService storageService, UserService userService) {
+	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {
 			storageService.deleteAll(); //删除所有旧文件
 			storageService.init(); //初始化文件夹
